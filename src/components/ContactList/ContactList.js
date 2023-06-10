@@ -6,11 +6,16 @@ import { deleteContact } from '../../app/contactsSlice';
 export function ContactList() {
   const contacts = useSelector(state => state.contacts);
   const dispatch = useDispatch();
+  const filter = useSelector(state => state.filter);
+
+  const normalizedFilter = filter.toLowerCase().trim();
+  const filterContacts = contacts.filter(contact => {
+    return contact.name.toLowerCase().includes(normalizedFilter);
+  });
 
   return (
     <ul className={css.contactList}>
-      {contacts.map(({ id, name, number }) => {
-        console.log(id);
+      {filterContacts.map(({ id, name, number }) => {
         return (
           <li key={id} className={css.listItem}>
             <p className={css.listName}>
