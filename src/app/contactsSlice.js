@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const defaultContacts = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -16,20 +16,15 @@ const contactsSlice = createSlice({
         const newContact = action.payload;
         state.push(newContact);
       },
-      prepare({ id, name, number }) {
-        return {
-          payload: {
-            id: id || nanoid(5),
-            name: name,
-            number: number,
-          },
-        };
-      },
     },
     deleteContact(state, action) {
       const contactId = action.payload;
       return state.filter(contact => contact.id !== contactId);
     },
+    // deleteContact(state, action) {
+    //   const index = state.findIndex(contact => contact.id === action.payload);
+    //   state.splice(index, 1);
+    // },
   },
 });
 
