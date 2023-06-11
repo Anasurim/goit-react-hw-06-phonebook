@@ -8,7 +8,7 @@ import { nanoid } from '@reduxjs/toolkit';
 
 export function ContactForm() {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts.items);
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -83,6 +83,12 @@ export function ContactForm() {
 }
 
 ContactForm.propTypes = {
-  name: PropTypes.string,
-  number: PropTypes.number,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.number.isRequired,
+    })
+  ),
+  filter: PropTypes.string,
 };
